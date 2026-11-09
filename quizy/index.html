@@ -19,7 +19,7 @@ all.sort((a,b)=>order.indexOf(a.id)-order.indexOf(b.id));
 const state={id:new URLSearchParams(location.search).get("dzial")||"I",done:false,teacher:false};
 const keyFor=id=>"hislogos-"+id.replaceAll(" ","-");
 const sections=t=>{const lines=t.replace(/\r/g,"").split("\n");const markers=[];for(let i=0;i<lines.length;i++){const m=lines[i].trim().match(/^(?:Zadanie\s+)?(\d{1,2})\.\s+(?:\([0-–−]\s*[–-]\s*\d+\))?/i);if(m&&+m[1]>=1&&+m[1]<=25){const l=lines[i].trim();if(/^(?:Zadanie\s+\d+\.|\d+\.\s+\S)/i.test(l)&& !/^\d+\.\s+[A-D]\s*[—–-]/.test(l)){markers.push({i,n:+m[1]});}}}
-const valid=markers.filter((v,idx)=>idx===0||v.n>markers[idx-1].n);if(valid.length<10)return [];
+const seen=new Set();const valid=markers.filter(v=>{if(seen.has(v.n))return false;seen.add(v.n);return true}).sort((a,b)=>a.i-b.i);if(valid.length<10)return [];
 return valid.map((m,i)=>({number:m.n,text:lines.slice(m.i,i+1<valid.length?valid[i+1].i:lines.length).join("\n").trim()})).filter(q=>q.number<=25);};
 function parse(q){
 const lines=q.text.split("\n"), candidates=[];for(let i=0;i<lines.length;i++){let m=lines[i].match(/^\s*([A-D])(?:[.)]\s*|\.\s+)(.*)$/);if(m)candidates.push({letter:m[1],text:m[2].trim(),line:i});}
@@ -27,7 +27,7 @@ const opts=candidates.filter(x=>x.text&&!/^\s*□/.test(x.text)); const unique=[
 const pre=lines.slice(0,opts[0].line).join("\n").replace(/^(?:Zadanie\s+)?\d+\.\s*(?:\([^)]+\))?\s*/,"").trim();
 return{body:pre,options:opts.map((o,i)=>({letter:o.letter,text:lines.slice(o.line,i+1<opts.length?opts[i+1].line:lines.length).join(" ").replace(/^\s*[A-D][.)]\s*/,"").replace(/\s*Odpowiedź\s*:.*/i,"").trim()}))};}
 function keys(txt){
-const map={};for(const line of txt.replace(/\r/g,"").split("\n")){let m=line.match(/^\s*(?:Zadanie\s+)?(\d{1,2})\s*[.)]\s*(?:Odpowiedź:\s*)?([A-D])\b/i);if(m)map[+m[1]]={answer:m[2],explanation:line.replace(m[0],"").replace(/^[\s.：:—–-]+/,"").trim()};}return map;}
+const map={};for(const line of txt.replace(/\r/g,"").split("\n")){let m=line.match(/^\s*(?:Zadanie\s+)?(\d{1,2})\s*[.) :]\s*(?:(?:Poprawna\s+)?odpowiedź\s*:\s*)?([A-D])\b/i);if(m)map[+m[1]]={answer:m[2],explanation:line.replace(m[0],"").replace(/^[\s.：:—–-]+/,"").trim()};}return map;}
 function readAnswers(id){try{return JSON.parse(localStorage.getItem(keyFor(id))||"{}")}catch(e){return{}}}
 function saveAnswers(id,v){try{localStorage.setItem(keyFor(id),JSON.stringify(v))}catch(e){}}
 function nav(){const term=$("search").value.trim().toLowerCase();const items=all.filter(x=>(x.title+" "+x.id).toLowerCase().includes(term));$("navigation").innerHTML=items.map(x=>'<button class="navbutton '+(x.id===state.id?"active":"")+'" data-open="'+escape(x.id)+'"><span class="roman">'+escape(x.id)+'</span><span class="navlabel">'+escape(x.title)+'<span class="navsub">'+(x.id.startsWith("KLON")?"Arkusz przekrojowy":"25 zadań · dział konkursowy")+'</span></span></button>').join("");$("navigation").querySelectorAll("[data-open]").forEach(el=>el.onclick=()=>open(el.dataset.open));}
