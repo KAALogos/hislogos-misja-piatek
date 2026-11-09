@@ -27,6 +27,8 @@
 #image-modal button{border-radius:7px;padding:7px 12px;background:white;border:1px solid #c3bfb7;cursor:pointer}
 @media(max-width:620px){.media-gallery{grid-template-columns:1fr}.media-frame{min-height:135px}.media-pdf iframe{height:74vh}}
 @media print{.media-pdf,.media-zoom,#image-modal{display:none!important}.media-card{break-inside:avoid}.media-frame,.media-frame img{max-height:320px}}
+.map-pdf-inline{display:block;width:100%;height:clamp(360px,70vh,730px);border:0;background:#fff}
+@media print{.map-pdf-inline{height:350px}}
 </style></head><body>
 <header><div class="eyebrow">HiSLogos / Historia w praktyce</div><h1>Biblioteka historii</h1><p>Od cywilizacji starożytnych do XVIII wieku. Oryginalne zestawy konkursowe, trening wiedzy historycznej oraz ćwiczenia przydatne na lekcjach historii w SLO nr 5.</p></header>
 <main><aside><h2>Epoki i zestawy</h2><input id="search" class="search" placeholder="Szukaj działu…" aria-label="Szukaj działu"><div class="navlist" id="navigation"></div></aside><section class="content" id="app"><div class="panel">Wczytywanie biblioteki…</div></section></main>
@@ -60,7 +62,7 @@ function originalLinks(d){return '<div class="source-links"><a href="https://doc
 function mediaFor(d,n){
 const list=(window.HIS_MEDIA?.[d.id]||[]).filter(m=>m.numbers.includes(n));
 if(!list.length)return "";
-const images=list.filter(m=>!!m.src),pdfs=list.filter(m=>!m.src);
+const images=list.filter(m=>!!m.src),maps=list.filter(m=>!!m.assetPdf),pdfs=list.filter(m=>!m.src&&!m.assetPdf);
 let s="";
 if(images.length){
 s+='<div class="media-gallery '+(images.length===1?"single":"")+'" aria-label="Materiały źródłowe do zadania '+n+'">';
@@ -68,6 +70,15 @@ for(const m of images){
 const src=escape(m.src),link=escape(m.source||m.src),label=escape(m.label);
 const provider=m.src.includes("zpe.gov.pl")?"ZPE":m.src.includes("wikimedia")?"Wikimedia Commons":"Zbiory cyfrowe";
 s+='<figure class="media-card"><div class="media-frame"><img src="'+src+'" alt="'+label+' — materiał źródłowy do zadania '+n+'" loading="lazy" decoding="async"><button type="button" class="media-zoom" data-media-zoom="'+src+'" data-media-title="'+label+'" aria-label="Powiększ '+label+'">Powiększ</button></div><div class="media-error">Nie udało się wczytać ilustracji. <a href="'+link+'" target="_blank" rel="noopener noreferrer">Otwórz źródło</a>.</div><figcaption>'+label+'<span class="media-provider">'+escape(provider)+'</span></figcaption><div class="media-license"><a href="'+link+'" target="_blank" rel="noopener noreferrer">Źródło i informacje o prawach</a></div></figure>';
+}
+s+='</div>';
+}
+
+if(maps.length){
+s+='<div class="media-gallery '+(maps.length===1?"single":"")+'" aria-label="Oryginalne mapy do zadania '+n+'">';
+for(const m of maps){
+const path=escape(m.assetPdf),label=escape(m.label);
+s+='<figure class="media-card"><iframe class="map-pdf-inline" loading="lazy" src="'+path+'#toolbar=0&navpanes=0&view=Fit" title="'+label+' z oryginalnego arkusza, zadanie '+n+'"></iframe><figcaption>'+label+'<span class="media-provider">Mapa z arkusza HiSLogos</span></figcaption><div class="media-license"><a href="'+path+'" target="_blank" rel="noopener noreferrer">Powiększ oryginalną mapę w nowej karcie</a></div></figure>';
 }
 s+='</div>';
 }
@@ -99,7 +110,7 @@ if(panel.open&&frame&&!frame.hasAttribute("src"))frame.src=frame.dataset.pdfPrev
 function draw(){const d=all.find(x=>x.id===state.id)||all[0];if(!d){$("app").innerHTML='<div class="panel">Nie udało się pobrać danych.</div>';return;}
 const qs=sections(d.raw),ks=keys(d.key),ans=readAnswers(d.id),graded=qs.filter(q=>parse(q).options.length===4&&ks[q.number]);
 const answered=qs.filter(q=>ans[q.number]).length;
-let html='<div class="summary"><span class="hero-label">'+(d.id.startsWith("KLON")?"Symulacja egzaminu":"Dział "+escape(d.id)+" / Chronologia")+'</span><h2>'+escape(d.title)+'</h2><p>Zachowano treść oryginalnego arkusza HiSLogos. Mapy i ilustracje osadzono bezpośrednio przy pytaniach. Wybrane mapy arkuszy próbnych są dostępne w osadzonym podglądzie oryginalnego PDF.</p><div class="meta"><span>'+qs.length+' bloków zadań</span><span>'+graded.length+' pytań możliwych do automatycznego ocenienia</span><span>'+answered+' odpowiedzi zapisanych</span></div>'+originalLinks(d)+'</div>';
+let html='<div class="summary"><span class="hero-label">'+(d.id.startsWith("KLON")?"Symulacja egzaminu":"Dział "+escape(d.id)+" / Chronologia")+'</span><h2>'+escape(d.title)+'</h2><p>Zachowano treść oryginalnego arkusza HiSLogos. Mapy i ilustracje osadzono bezpośrednio przy pytaniach, w tym oryginalne mapy ze wszystkich arkuszy próbnych. Obrazy można powiększać, a mapy otwierać osobno.</p><div class="meta"><span>'+qs.length+' bloków zadań</span><span>'+graded.length+' pytań możliwych do automatycznego ocenienia</span><span>'+answered+' odpowiedzi zapisanych</span></div>'+originalLinks(d)+'</div>';
 html+='<div class="panel"><div class="progress"><span style="width:'+(qs.length?Math.round(100*answered/qs.length):0)+'%"></span></div><div class="toolbar"><button class="btn primary" id="finish">Sprawdź odpowiedzi</button><button class="btn" id="toggleTeacher">'+(state.teacher?"Ukryj":"Pokaż")+' klucz i objaśnienia</button><button class="btn" id="reset">Wyczyść odpowiedzi</button><button class="btn" id="print">Drukuj</button></div><small>Odpowiedzi zapisują się na tym urządzeniu. Klucz nie otwiera się automatycznie przed zakończeniem treningu.</small></div>';
 if(!qs.length){html+='<div class="panel"><div class="note">Ten arkusz ma złożony układ źródeł i podzadań. Zachowano go poniżej w pełnym brzmieniu; odpowiedzi należy sprawdzać według oryginalnego klucza. Nie przypisano mu fikcyjnej punktacji automatycznej.</div><pre>'+escape(d.raw)+'</pre></div>';}
 else{for(const q of qs){const parsed=parse(q),key=ks[q.number],selection=ans[q.number];html+='<article class="question" id="q-'+q.number+'"><h3>Zadanie '+q.number+'</h3><div class="stem">'+escape(parsed.body)+'</div>'+mediaFor(d,q.number);if(parsed.options.length===4){html+='<div class="choices">'+parsed.options.map(o=>'<label class="choice '+(selection===o.letter?"chosen":"")+(state.done&&key?(o.letter===key.answer?" correct":selection===o.letter?" wrong":""):"")+'"><input type="radio" name="q'+q.number+'" value="'+o.letter+'" '+(selection===o.letter?"checked":"")+' '+(state.done?"disabled":"")+'><b>'+o.letter+'.</b> <span>'+escape(o.text)+'</span></label>').join("")+'</div>';}else html+='<div class="note">Zadanie wymaga kilku rozstrzygnięć lub ma układ źródłowy. Odpowiedz na podstawie oryginalnego PDF.</div>';
