@@ -4,11 +4,35 @@
 <style>
 :root{--bg:#f4f1e9;--paper:#fffdfa;--ink:#232d32;--muted:#627078;--accent:#8c3e29;--line:#dad8d0;--good:#226c56;--bad:#a23737}
 *{box-sizing:border-box}body{margin:0;color:var(--ink);font:16px/1.52 system-ui,-apple-system,Segoe UI,sans-serif;background:var(--bg)}a{color:#84512b}button,select,input{font:inherit}button{cursor:pointer}header{background:#202b32;color:#f9f6ee;padding:27px clamp(18px,4vw,62px)}header .eyebrow{color:#dcc29a;text-transform:uppercase;letter-spacing:.16em;font-size:.73rem;font-weight:800}h1,h2,h3{font-family:Georgia,serif;line-height:1.15}h1{font-size:clamp(2rem,4vw,3.45rem);margin:8px 0}header p{color:#d5d9d9;max-width:740px;margin:6px 0}main{max-width:1380px;margin:0 auto;padding:26px 22px;display:grid;grid-template-columns:310px minmax(0,1fr);gap:24px}aside{align-self:start;position:sticky;top:15px;max-height:calc(100vh - 25px);overflow:auto;background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:16px}aside h2{font-size:1.12rem;margin:0 0 12px}.search{width:100%;padding:11px;border-radius:9px;border:1px solid var(--line);background:white}.navgroup{margin:16px 0 7px;color:var(--muted);font-size:.72rem;text-transform:uppercase;letter-spacing:.12em;font-weight:800}.navbutton{display:flex;align-items:flex-start;gap:11px;width:100%;padding:10px;text-align:left;border:0;background:transparent;color:var(--ink);border-radius:9px}.navbutton:hover,.navbutton.active{background:#e8dfd3}.roman{flex-shrink:0;display:grid;place-items:center;width:38px;min-height:35px;border-radius:8px;background:#e4e0d6;color:#6e3527;font:bold .79rem system-ui}.navlabel{font-size:.84rem;font-weight:630;line-height:1.35}.navsub{display:block;font-size:.73rem;color:var(--muted);font-weight:400;margin-top:3px}section.content{min-width:0}.summary,.panel,.question{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:clamp(17px,2.8vw,28px);margin-bottom:18px;box-shadow:0 2px 10px #252b3010}.hero-label{text-transform:uppercase;letter-spacing:.13em;color:var(--accent);font-size:.77rem;font-weight:800}.summary h2{font-size:clamp(1.65rem,3vw,2.5rem);margin:6px 0 7px}.summary p{color:var(--muted);margin:0}.meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}.meta span{background:#f1ebe0;border-radius:100px;padding:6px 12px;font-size:.81rem}.toolbar{display:flex;flex-wrap:wrap;gap:9px;margin:16px 0}.btn{border:1px solid #c9c5b9;color:var(--ink);background:white;padding:10px 14px;border-radius:9px;font-weight:650;font-size:.87rem}.btn:hover{border-color:var(--accent)}.btn.primary{background:var(--accent);color:white;border-color:var(--accent)}.question h3{font-size:1.15rem;margin:0 0 12px}.stem{white-space:pre-wrap;margin:12px 0 15px}.choices{display:grid;gap:8px}.choice{display:flex;align-items:flex-start;gap:10px;border:1px solid #dcd8ce;background:#faf8f3;border-radius:9px;padding:11px 13px;cursor:pointer}.choice:hover{border-color:#9b8877}.choice input{margin-top:5px;accent-color:var(--accent)}.choice.chosen{background:#f1e6d9;border-color:#a36b4b}.choice.correct{border-color:var(--good);background:#e5f3ec}.choice.wrong{border-color:var(--bad);background:#fff0ef}.feedback{margin-top:12px;padding:12px;border-left:3px solid var(--good);background:#edf6f1;font-size:.9rem}.note{background:#f5efe2;border-left:3px solid #b0833d;padding:10px 13px;border-radius:4px;margin:12px 0}.source-links{display:flex;flex-wrap:wrap;gap:10px;margin-top:15px}.source-links a{font-size:.82rem;text-decoration:none;border-bottom:1px solid}.question small{color:var(--muted)}pre{white-space:pre-wrap;font-family:inherit;font-size:.86rem;line-height:1.55;overflow-wrap:anywhere}.hide{display:none!important}.progress{height:8px;background:#e7e3d9;border-radius:8px;overflow:hidden}.progress span{display:block;height:100%;background:var(--good);width:0;transition:width .2s}footer{text-align:center;color:var(--muted);padding:18px;font-size:.8rem}@media(max-width:860px){main{display:block;padding:12px}aside{position:static;max-height:none;margin-bottom:14px}.navlist{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr))}header{padding:25px 18px}}@media print{header,aside,.toolbar,footer,.source-links,.search{display:none!important}main{display:block;padding:0}.question{break-inside:avoid;box-shadow:none}.summary{box-shadow:none}body{background:white}}
+
+.media-gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));gap:13px;margin:18px 0}
+.media-gallery.single{grid-template-columns:minmax(0,1fr)}
+.media-card{margin:0;min-width:0;border:1px solid var(--line);background:#f8f5ee;border-radius:10px;overflow:hidden}
+.media-frame{display:flex;align-items:center;justify-content:center;position:relative;min-height:180px;max-height:550px;padding:8px;background:#eae6df}
+.media-frame img{display:block;width:auto;max-width:100%;max-height:530px;object-fit:contain}
+.media-zoom{position:absolute;bottom:10px;right:10px;border:0;border-radius:7px;background:#202b32ee;color:white;padding:7px 12px;font-size:.81rem;cursor:pointer}
+.media-card figcaption{padding:10px 12px;font-weight:750;font-size:.87rem;display:flex;align-items:center;justify-content:space-between;gap:8px}
+.media-provider{font-weight:400;color:var(--muted);font-size:.78rem}
+.media-license{border-top:1px solid var(--line);padding:8px 12px;font-size:.79rem}
+.media-error{display:none;padding:16px;background:#fff3ed;color:var(--bad);font-size:.87rem}
+.media-card.failed .media-frame{display:none}.media-card.failed .media-error{display:block}
+.media-pdf{background:#f7f3ea;border:1px solid var(--line);border-radius:9px;padding:12px;margin:16px 0}
+.media-pdf summary{cursor:pointer;font-weight:700}.media-pdf p{font-size:.85rem;color:var(--muted)}
+.media-pdf iframe{width:100%;height:min(80vh,760px);background:white;border:1px solid #c4bcae;border-radius:8px;display:block;margin-top:10px}
+.media-pdf a{font-size:.83rem}
+#image-modal{padding:12px;border:0;border-radius:12px;max-width:96vw;max-height:96vh;background:#fdfbf6;box-shadow:0 23px 60px #0006}
+#image-modal::backdrop{background:#17272ad9}
+#image-modal .modal-top{display:flex;justify-content:space-between;gap:18px;align-items:center;margin-bottom:8px}
+#image-modal img{display:block;max-height:82vh;max-width:92vw;object-fit:contain}
+#image-modal button{border-radius:7px;padding:7px 12px;background:white;border:1px solid #c3bfb7;cursor:pointer}
+@media(max-width:620px){.media-gallery{grid-template-columns:1fr}.media-frame{min-height:135px}.media-pdf iframe{height:74vh}}
+@media print{.media-pdf,.media-zoom,#image-modal{display:none!important}.media-card{break-inside:avoid}.media-frame,.media-frame img{max-height:320px}}
 </style></head><body>
 <header><div class="eyebrow">HiSLogos / Historia w praktyce</div><h1>Biblioteka historii</h1><p>Od cywilizacji starożytnych do XVIII wieku. Oryginalne zestawy konkursowe, trening wiedzy historycznej oraz ćwiczenia przydatne na lekcjach historii w SLO nr 5.</p></header>
 <main><aside><h2>Epoki i zestawy</h2><input id="search" class="search" placeholder="Szukaj działu…" aria-label="Szukaj działu"><div class="navlist" id="navigation"></div></aside><section class="content" id="app"><div class="panel">Wczytywanie biblioteki…</div></section></main>
+<dialog id="image-modal" aria-label="Powiększenie ilustracji"><div class="modal-top"><strong id="image-title">Materiał źródłowy</strong><button id="image-close" type="button">Zamknij</button></div><img id="image-large" alt="Powiększony materiał źródłowy"></dialog>
 <footer>HiSLogos · materiały autorskie · konkurs MKO 2026/27 · Historia — poziom podstawowy SLO nr 5</footer>
-<script src="./data-1.js"></script><script src="./data-2.js"></script><script src="./data-3.js"></script><script src="./data-4.js"></script>
+<script src="./data-1.js"></script><script src="./data-2.js"></script><script src="./data-3.js"></script><script src="./data-4.js"></script><script src="./media.js"></script>
 <script>
 (function(){
 "use strict";
@@ -32,17 +56,58 @@ function readAnswers(id){try{return JSON.parse(localStorage.getItem(keyFor(id))|
 function saveAnswers(id,v){try{localStorage.setItem(keyFor(id),JSON.stringify(v))}catch(e){}}
 function nav(){const term=$("search").value.trim().toLowerCase();const items=all.filter(x=>(x.title+" "+x.id).toLowerCase().includes(term));$("navigation").innerHTML=items.map(x=>'<button class="navbutton '+(x.id===state.id?"active":"")+'" data-open="'+escape(x.id)+'"><span class="roman">'+escape(x.id)+'</span><span class="navlabel">'+escape(x.title)+'<span class="navsub">'+(x.id.startsWith("KLON")?"Arkusz przekrojowy":"25 zadań · dział konkursowy")+'</span></span></button>').join("");$("navigation").querySelectorAll("[data-open]").forEach(el=>el.onclick=()=>open(el.dataset.open));}
 function originalLinks(d){return '<div class="source-links"><a href="https://docs.google.com/document/d/'+encodeURIComponent(d.doc)+'/edit" target="_blank" rel="noopener">Arkusz w Google Docs</a><a href="https://drive.google.com/file/d/'+encodeURIComponent(d.pdf)+'/view" target="_blank" rel="noopener">PDF z ilustracjami</a><a href="https://'+(d.keydoc.length>36?"drive.google.com/file/d/":"docs.google.com/document/d/")+encodeURIComponent(d.keydoc)+(d.keydoc.length>36?"/view":"/edit")+'" target="_blank" rel="noopener">Oryginalny klucz</a></div>';}
+
+function mediaFor(d,n){
+const list=(window.HIS_MEDIA?.[d.id]||[]).filter(m=>m.numbers.includes(n));
+if(!list.length)return "";
+const images=list.filter(m=>!!m.src),pdfs=list.filter(m=>!m.src);
+let s="";
+if(images.length){
+s+='<div class="media-gallery '+(images.length===1?"single":"")+'" aria-label="Materiały źródłowe do zadania '+n+'">';
+for(const m of images){
+const src=escape(m.src),link=escape(m.source||m.src),label=escape(m.label);
+const provider=m.src.includes("zpe.gov.pl")?"ZPE":m.src.includes("wikimedia")?"Wikimedia Commons":"Zbiory cyfrowe";
+s+='<figure class="media-card"><div class="media-frame"><img src="'+src+'" alt="'+label+' — materiał źródłowy do zadania '+n+'" loading="lazy" decoding="async"><button type="button" class="media-zoom" data-media-zoom="'+src+'" data-media-title="'+label+'" aria-label="Powiększ '+label+'">Powiększ</button></div><div class="media-error">Nie udało się wczytać ilustracji. <a href="'+link+'" target="_blank" rel="noopener noreferrer">Otwórz źródło</a>.</div><figcaption>'+label+'<span class="media-provider">'+escape(provider)+'</span></figcaption><div class="media-license"><a href="'+link+'" target="_blank" rel="noopener noreferrer">Źródło i informacje o prawach</a></div></figure>';
+}
+s+='</div>';
+}
+if(pdfs.length){
+const src='https://drive.google.com/file/d/'+encodeURIComponent(d.pdf)+'/preview', link='https://drive.google.com/file/d/'+encodeURIComponent(d.pdf)+'/view';
+const labels=pdfs.map(x=>escape(x.label)).join(", ");
+s+='<details class="media-pdf"><summary>'+labels+' — wyświetl oryginalną mapę w arkuszu</summary><p>Mapa ma oznaczenia niezbędne do zadania. Nie zachował się jej trwały osobny adres; poniżej jest osadzony oryginalny PDF. Przewiń do zadania '+n+'.</p><iframe data-pdf-preview="'+escape(src)+'" title="Oryginalny arkusz PDF z mapą — zadanie '+n+'" loading="lazy"></iframe><a href="'+escape(link)+'" target="_blank" rel="noopener noreferrer">PDF w nowej karcie</a></details>';
+}
+return s;
+}
+function initMedia(){
+$("app").querySelectorAll(".media-frame img").forEach(img=>{
+const fail=()=>{const figure=img.closest(".media-card");if(figure)figure.classList.add("failed")};
+img.addEventListener("error",fail);
+if(img.complete&&img.naturalWidth===0)fail();
+});
+$("app").querySelectorAll("[data-media-zoom]").forEach(btn=>btn.onclick=()=>{
+$("image-title").textContent=btn.dataset.mediaTitle||"Materiał źródłowy";
+$("image-large").src=btn.dataset.mediaZoom;
+$("image-large").alt=$("image-title").textContent;
+$("image-modal").showModal();
+});
+$("app").querySelectorAll("details.media-pdf").forEach(panel=>panel.addEventListener("toggle",()=>{
+const frame=panel.querySelector("iframe[data-pdf-preview]");
+if(panel.open&&frame&&!frame.hasAttribute("src"))frame.src=frame.dataset.pdfPreview;
+}));
+}
+
 function draw(){const d=all.find(x=>x.id===state.id)||all[0];if(!d){$("app").innerHTML='<div class="panel">Nie udało się pobrać danych.</div>';return;}
 const qs=sections(d.raw),ks=keys(d.key),ans=readAnswers(d.id),graded=qs.filter(q=>parse(q).options.length===4&&ks[q.number]);
 const answered=qs.filter(q=>ans[q.number]).length;
-let html='<div class="summary"><span class="hero-label">'+(d.id.startsWith("KLON")?"Symulacja egzaminu":"Dział "+escape(d.id)+" / Chronologia")+'</span><h2>'+escape(d.title)+'</h2><p>Zachowano treść oryginalnego arkusza HiSLogos. Ilustracje i mapy oglądaj w podlinkowanym PDF — tekstowa wersja ćwiczeń nie zastępuje ich treści.</p><div class="meta"><span>'+qs.length+' bloków zadań</span><span>'+graded.length+' pytań możliwych do automatycznego ocenienia</span><span>'+answered+' odpowiedzi zapisanych</span></div>'+originalLinks(d)+'</div>';
+let html='<div class="summary"><span class="hero-label">'+(d.id.startsWith("KLON")?"Symulacja egzaminu":"Dział "+escape(d.id)+" / Chronologia")+'</span><h2>'+escape(d.title)+'</h2><p>Zachowano treść oryginalnego arkusza HiSLogos. Mapy i ilustracje osadzono bezpośrednio przy pytaniach. Wybrane mapy arkuszy próbnych są dostępne w osadzonym podglądzie oryginalnego PDF.</p><div class="meta"><span>'+qs.length+' bloków zadań</span><span>'+graded.length+' pytań możliwych do automatycznego ocenienia</span><span>'+answered+' odpowiedzi zapisanych</span></div>'+originalLinks(d)+'</div>';
 html+='<div class="panel"><div class="progress"><span style="width:'+(qs.length?Math.round(100*answered/qs.length):0)+'%"></span></div><div class="toolbar"><button class="btn primary" id="finish">Sprawdź odpowiedzi</button><button class="btn" id="toggleTeacher">'+(state.teacher?"Ukryj":"Pokaż")+' klucz i objaśnienia</button><button class="btn" id="reset">Wyczyść odpowiedzi</button><button class="btn" id="print">Drukuj</button></div><small>Odpowiedzi zapisują się na tym urządzeniu. Klucz nie otwiera się automatycznie przed zakończeniem treningu.</small></div>';
 if(!qs.length){html+='<div class="panel"><div class="note">Ten arkusz ma złożony układ źródeł i podzadań. Zachowano go poniżej w pełnym brzmieniu; odpowiedzi należy sprawdzać według oryginalnego klucza. Nie przypisano mu fikcyjnej punktacji automatycznej.</div><pre>'+escape(d.raw)+'</pre></div>';}
-else{for(const q of qs){const parsed=parse(q),key=ks[q.number],selection=ans[q.number];html+='<article class="question" id="q-'+q.number+'"><h3>Zadanie '+q.number+'</h3><div class="stem">'+escape(parsed.body)+'</div>';if(parsed.options.length===4){html+='<div class="choices">'+parsed.options.map(o=>'<label class="choice '+(selection===o.letter?"chosen":"")+(state.done&&key?(o.letter===key.answer?" correct":selection===o.letter?" wrong":""):"")+'"><input type="radio" name="q'+q.number+'" value="'+o.letter+'" '+(selection===o.letter?"checked":"")+' '+(state.done?"disabled":"")+'><b>'+o.letter+'.</b> <span>'+escape(o.text)+'</span></label>').join("")+'</div>';}else html+='<div class="note">Zadanie wymaga kilku rozstrzygnięć lub ma układ źródłowy. Odpowiedz na podstawie oryginalnego PDF.</div>';
+else{for(const q of qs){const parsed=parse(q),key=ks[q.number],selection=ans[q.number];html+='<article class="question" id="q-'+q.number+'"><h3>Zadanie '+q.number+'</h3><div class="stem">'+escape(parsed.body)+'</div>'+mediaFor(d,q.number);if(parsed.options.length===4){html+='<div class="choices">'+parsed.options.map(o=>'<label class="choice '+(selection===o.letter?"chosen":"")+(state.done&&key?(o.letter===key.answer?" correct":selection===o.letter?" wrong":""):"")+'"><input type="radio" name="q'+q.number+'" value="'+o.letter+'" '+(selection===o.letter?"checked":"")+' '+(state.done?"disabled":"")+'><b>'+o.letter+'.</b> <span>'+escape(o.text)+'</span></label>').join("")+'</div>';}else html+='<div class="note">Zadanie wymaga kilku rozstrzygnięć lub ma układ źródłowy. Odpowiedz na podstawie oryginalnego PDF.</div>';
 if((state.done||state.teacher)&&key)html+='<div class="feedback"><strong>Klucz: '+escape(key.answer)+'</strong> '+escape(key.explanation)+'</div>'; html+='</article>';}}
 if(state.teacher){html+='<div class="panel"><h2>Pełny klucz nauczyciela</h2><pre>'+escape(d.key)+'</pre></div>';}
 if(state.done){const compared=graded.filter(q=>ans[q.number]&&ans[q.number]===ks[q.number].answer);html='<div class="panel"><h2>Wynik automatyczny: '+compared.length+' / '+graded.length+'</h2><p>Dotyczy wyłącznie jednoznacznie odczytanych pytań jednokrotnego wyboru. Pozostałe zadania i elementy oparte na mapach lub ilustracjach wymagają sprawdzenia przez nauczyciela z PDF-em.</p></div>'+html;}
 $("app").innerHTML=html;
+initMedia();
 $("app").querySelectorAll('input[type=radio]').forEach(el=>el.onchange=()=>{const a=readAnswers(d.id);a[+el.name.slice(1)]=el.value;saveAnswers(d.id,a);draw();});
 $("finish").onclick=()=>{state.done=true;draw();window.scrollTo({top:0,behavior:"smooth"})};
 $("toggleTeacher").onclick=()=>{state.teacher=!state.teacher;draw()};
@@ -50,6 +115,7 @@ $("reset").onclick=()=>{if(confirm("Wyczyścić odpowiedzi w tym arkuszu?")){sav
 $("print").onclick=()=>window.print();
 }
 function open(id){state.id=id;state.done=false;state.teacher=false;history.replaceState(null,"","?dzial="+encodeURIComponent(id));nav();draw();window.scrollTo({top:0,behavior:"smooth"})}
+$("image-close").onclick=()=>$("image-modal").close();
 $("search").oninput=nav;nav();draw();
 })();
 </script></body></html>
